@@ -44,14 +44,17 @@ public class Mailbox implements Serializable {
 
 
     public void addFolder(Folder folder) throws Exception {
-        if (folders.isEmpty())
-            folders.add(folder);
+        if (folder.getName().equalsIgnoreCase("Inbox") || folder.getName().equalsIgnoreCase("Trash"))
+            throw new Exception("Inbox and Trash are default folders, folders with those names cannot be added");
         else {
-            for (Folder item : folders) {
-                if (item.getName().equalsIgnoreCase(folder.getName()))
-                    throw new Exception("Folder name already exist");
-                else
-                    folders.add(folder);
+            if (folders.isEmpty())
+                folders.add(folder);
+            else {
+                for (Folder item : folders) {
+                    if (item.getName().equalsIgnoreCase(folder.getName()))
+                        throw new Exception("Folder name already exist");
+                }
+                folders.add(folder);
             }
         }
     }
@@ -131,13 +134,13 @@ public class Mailbox implements Serializable {
                 folderFound = true;
             }
             if (folderFound) {
-                System.out.printf("\"%s\" moved to %s", email.getSubject(), target.getName());
+                System.out.printf("\"%s\" moved to %s\n", email.getSubject(), target.getName());
                 break;
             }
         }
 
 
-        if (folderFound) {
+        if (!folderFound) {
             System.out.println("Folder not found moving to inbox");
             inbox.addEmail(email);
         }

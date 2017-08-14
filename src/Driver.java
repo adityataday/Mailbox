@@ -61,9 +61,10 @@ public class Driver {
                 } else if (choice.equalsIgnoreCase("F")) {
 
                     System.out.println("Enter the folder name: ");
+                    String folderName = userInput.nextLine();
 
                     for (int i = 0; i < mailbox.getFolders().size(); i++) {
-                        if (mailbox.getFolders().get(i).getName().equalsIgnoreCase(userInput.nextLine())) {
+                        if (mailbox.getFolders().get(i).getName().equalsIgnoreCase(folderName)) {
                             menuOptions(mailbox.getFolders().get(i));
                         }
                     }
@@ -73,7 +74,8 @@ public class Driver {
                     menuOptions(mailbox.getTrash());
                 } else if (choice.equalsIgnoreCase("E")) {
                     mailbox.clearTrash();
-                }
+                } else if (!choice.equalsIgnoreCase("Q"))
+                    throw new Exception("Incorrect input, please try again");
 
                 System.out.println();
 
