@@ -1,5 +1,4 @@
 import java.io.Serializable;
-
 import java.util.GregorianCalendar;
 
 public class Email implements Serializable{
@@ -69,4 +68,12 @@ public class Email implements Serializable{
         this.timestamp = timestamp;
     }
 
+    @Override
+    public String toString() {
+        return "\n" + "to = " + to + "\n" +
+                "cc = " + cc + "\n" +
+                "bcc = " + bcc + "\n" +
+                "subject = " + subject + "\n" +
+                "" + body + "\n";
+    }
 }

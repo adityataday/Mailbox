@@ -1,9 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Folder {
+public class Folder implements Serializable {
 
     private ArrayList<Email> emails;            // Stores emails in this arrayList.
     private String name;                        // Stores the name of the folder.
@@ -11,6 +11,7 @@ public class Folder {
 
 
     public Folder() {
+        emails = new ArrayList<>();
     }
 
     public ArrayList<Email> getEmails() {
@@ -53,7 +54,7 @@ public class Folder {
             sortByDateAscending();
     }
 
-    public Email removeEmail(int index){
+    public Email removeEmail(int index) {
         return emails.remove(index);
     }
 
@@ -99,5 +100,14 @@ public class Folder {
         currentSortingMethod = "DD";
 
         return emails;
+    }
+
+    public void printFolder() {
+        System.out.printf("%15s | %30s | %25s\n", "Index", "Time", "Subject");
+        System.out.printf("-------------------------------------------------------------------------------------------\n");
+        for (int i = 0; i < emails.size(); i++) {
+            System.out.printf("%15s | %30s | %25s\n", i, emails.get(i).getTimestamp().getTime(), emails.get(i).getSubject());
+        }
+
     }
 }
